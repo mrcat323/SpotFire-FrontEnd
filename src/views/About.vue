@@ -1,10 +1,8 @@
 <template>
-  <div class="about">
+  <div class="container pt-30">
     <h3 class="title">Who are we ?</h3>  
-    <v-spacer></v-spacer>
-    <v-img class="centered-image" alt="Cosmo Spirit LOGO" :lazy-src="logo" :src="logo" max-width="300" max-height="300" />  
+    <img class="centered-image" alt="Cosmo Spirit LOGO" :src="logo" width="300" height="300" />  
     <p class="subtitle-1">We are <span class="font-weight-bold">The Cosmo Spirit</span> and we make the world better providing spotting wildfires with our technology</p>
-
   </div>
 </template>
 <script>
