@@ -23,7 +23,7 @@
 							<div class="card-content">
 								<div class="media">
 									<div class="media-content">
-										<p class="title is-4">{{ information.city }}</p>
+										<p class="title is-4">{{ information.city | capitalize }}</p>
 									</div>
 								</div>
 
@@ -52,6 +52,8 @@
 									></b-icon>	
 									{{ information.wind }}M/S</p>
 									<br>
+					                <time :datetime="dateToShow">{{ timeToShow }} | {{ dateToShow }}</time>
+									
 								</div>
 							</div>
 				</div>
@@ -67,6 +69,7 @@
   </div>
 </template>
 <script>
+/* eslint-disable */
 import Navbar from '../components/Navbar'
 import { SnackbarProgrammatic as Snackbar } from 'buefy'
 import axios from 'axios'
@@ -107,6 +110,25 @@ export default {
 		loading: false,
 		value: 20
 	}),
+	filters: {
+		capitalize(value) {
+			if (!value)
+				return ''
+			value = value.toString() 
+			return value.charAt(0).toUpperCase() + value.slice(1)
+		}
+	},
+	computed: {
+		dateToShow() {
+			const months = [
+				'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'	
+			]
+			return this.information.day + ' ' + months[this.information.month - 1] + ' ' + this.information.year
+		},
+		timeToShow() {
+			return this.information.hours + ':' + this.information.minutes	
+		}
+	},
 	methods: {
 		grab() {
 			this.information = null	
