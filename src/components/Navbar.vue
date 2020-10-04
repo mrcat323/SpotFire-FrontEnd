@@ -7,13 +7,13 @@
           <router-link class="navbar-item" to="/">
             <p class="title">CosmoSpirit</p>
           </router-link>
-          <span class="navbar-burger burger" data-target="navbarMenuHeroB">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
+          <a role="button" class="navbar-burger" data-target="navbarMenuHeroB" @click="showNav = !showNav" :class="{ 'is-active': showNav }">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
         </div>
-        <div id="navbarMenuHeroB" class="navbar-menu">
+        <div id="navbarMenuHeroB" class="navbar-menu" :class="{ 'is-active': showNav }">
           <div class="navbar-end">
             <router-link class="navbar-item" to="/">
               Home
@@ -46,6 +46,9 @@
 <script>
 export default {
   props: ['bgImage', 'title', 'subTitle'],
+  data: () => ({
+    showNav: false  
+  }),
   computed: {
     style() {
       return 'background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(' + this.bgImage + ') right bottom; background-size: cover;';
@@ -56,5 +59,9 @@ export default {
 <style lang="scss" scoped>
 p, .navbar-item {
   color: white;  
+}
+
+.navbar-menu.is-active .navbar-end .navbar-item {
+  color: black;  
 }
 </style>
