@@ -1,10 +1,22 @@
 /* eslint-disable */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
-import Instructions from '../views/Instructions.vue'
-
+  
+const Home = resolve => { // использование lazy-loading, его лучше использовать, если страница много весит, этот способ ускоряет работу и улучшает оптимизацию
+  require.ensure(['../views/Home.vue'], () => {
+    resolve(require('../views/Home.vue'))
+  })
+}
+const About = resolve => { // использование lazy-loading, его лучше использовать, если страница много весит, этот способ ускоряет работу и улучшает оптимизацию
+  require.ensure(['../views/About.vue'], () => {
+    resolve(require('../views/About.vue'))
+  })
+}
+const Instructions = resolve => { // использование lazy-loading, его лучше использовать, если страница много весит, этот способ ускоряет работу и улучшает оптимизацию
+  require.ensure(['../views/Instructions.vue'], () => {
+    resolve(require('../views/Instructions.vue'))
+  })
+}
 Vue.use(VueRouter)
 
 const routes = [
