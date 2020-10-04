@@ -55,6 +55,10 @@
 								</div>
 							</div>
 				</div>
+					<progress-bar
+					:options="options"
+					value="100"
+					></progress-bar>
 					</div>
 					</div>
 					</div>
@@ -74,23 +78,65 @@ export default {
 		city: '',
 		error: '',
 		information: null,		
-		img: 'https://media-public.canva.com/MADQ5PdZ0-A/1/screen_2x.jpg'
+		img: 'https://media-public.canva.com/MADQ5PdZ0-A/1/screen_2x.jpg',
+		options: {
+			text: {
+				color: '#FFFFFF',
+				shadowEnable: true,
+				shadowColor: '#000000',
+				fontSize: 14,
+				fontFamily: 'Helvetica',
+				dynamicPosition: false,
+				hideText: false
+			},
+			progress: {
+				color: '#2dbd2d',
+				backgroundColor: '#333333'
+			},
+			layout: {
+				height: 60,
+				width: 200,
+				verticalTextAlign: 61,
+				horizontalTextAlign: 43,
+				zeroOffset: 0,
+				strokeWidth: 30,
+				progressPadding: 0,
+				type: 'circle'
+			}
+		},
+		loading: false,
+		value: 20
 	}),
 	methods: {
 		grab() {
+			this.information = null	
 			if (this.city.length) {
+				this.loading = true
+				if (this.loading)
+					this.countdown()
 				axios.get(`/city/${this.city}`)
 				.then(res => {
+					this.loading = false
+					this.value = 20
 					this.information = res.data.city_info
 				}).catch(err => {
 					console.log(err.response.data.status)	
 					if (err.response.status) {
+						this.loading = false
+						this.value = 20	
 						this.error = 'Sorry, but we cannot find city in our database, try anything else'
 						Snackbar.open({ message: this.error, position: 'is-bottom-left'})
 					}
 				})	
 			}
-		}	
+		},
+		countdown() {
+			if (this.value != 100)
+				this.value += 20	
+			setTimeout(() => {
+				this.countdown()
+			}, 150)
+		}
 	},
 	components: { Navbar }
 }
