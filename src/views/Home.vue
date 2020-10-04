@@ -55,9 +55,9 @@
 								</div>
 							</div>
 				</div>
-					<progress-bar
+					<progress-bar v-if="loading"
 					:options="options"
-					value="100"
+					:value="value"
 					></progress-bar>
 					</div>
 					</div>
@@ -71,7 +71,7 @@ import Navbar from '../components/Navbar'
 import { SnackbarProgrammatic as Snackbar } from 'buefy'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://fire.rogo.tj'
+axios.defaults.baseURL = 'https://fire.rogo.tj'
 
 export default {
 	data: () => ({
