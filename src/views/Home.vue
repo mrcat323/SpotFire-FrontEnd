@@ -141,6 +141,7 @@ export default {
 					this.loading = false
 					this.value = 20
 					this.information = res.data.city_info
+					this.information.city = decodeURI(this.information.city)
 				}).catch(err => {
 					console.log(err.response.data.status)	
 					if (err.response.status) {
